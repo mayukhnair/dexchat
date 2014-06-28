@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 import javax.sound.sampled.*;
+import java.io.File;
 
 /*
  * To change this template, choose Tools | Templates
@@ -24,8 +25,20 @@ public class Client extends javax.swing.JFrame {
 static String temp1,passname;
 
 public class PTTInstance{
-  File input=new File("/src/PTT");  
+  File wavFile=new File("input.wav");  
+  AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
+  TargetDataLine line;
   
+  AudioFormat getAudioFormat(){
+    float sampleRate = 16000;
+        int sampleSizeInBits = 8;
+        int channels = 2;
+        boolean signed = true;
+        boolean bigEndian = true;
+        AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
+                                             channels, signed, bigEndian);
+        return format;
+}
 }
 
     /**
@@ -51,7 +64,6 @@ public class PTTInstance{
         jLabel3 = new javax.swing.JLabel();
         portname = new javax.swing.JTextField();
         PTTButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
 
         area.setText("jTextField1");
 
@@ -208,8 +220,6 @@ public class PTTInstance{
             }
         });
 
-        jLabel4.setText("jLabel4");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,7 +230,7 @@ public class PTTInstance{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                        .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -237,8 +247,6 @@ public class PTTInstance{
                                 .addComponent(PTTButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                             .addComponent(chatmsg)
                             .addComponent(jScrollPane1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -254,20 +262,14 @@ public class PTTInstance{
                     .addComponent(jLabel3)
                     .addComponent(portname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chatmsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(PTTButton))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(163, 163, 163))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chatmsg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(PTTButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1001,11 +1003,13 @@ e.printStackTrace();
     private void PTTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PTTButtonActionPerformed
         // TODO add your handling code here:
         
+        
     }//GEN-LAST:event_PTTButtonActionPerformed
 
     private void PTTButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PTTButtonKeyPressed
         // TODO add your handling code here:
-        
+       
+            
     }//GEN-LAST:event_PTTButtonKeyPressed
 
     private void PTTButtonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PTTButtonKeyReleased
@@ -1017,6 +1021,8 @@ e.printStackTrace();
         // TODO add your handling code here:
         System.out.println("Test begins");
         
+       
+ 
     }//GEN-LAST:event_PTTButtonMousePressed
 
     private void PTTButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PTTButtonMouseReleased
@@ -1077,7 +1083,6 @@ e.printStackTrace();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField portname;
     private javax.swing.JTextArea quotetxt;
